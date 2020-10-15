@@ -4,17 +4,16 @@ var playerAttack = 10;
 var playerMoney = 10;
 
 // You can also log multiple values at once like this
-console.log(playerName, playerAttack, playerHealth,playerMoney);
+console.log(playerName, playerAttack, playerHealth, playerMoney);
 
-var enemyName = "Clue";
+var enemyNames = ["Paintrain Palmer", "BoomBoom Brad", "Rad Ryan"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-console.log(enemyName, enemyAttack, enemyHealth);
+window.alert("Welcome to Robot Gladiators Colosseum of Death! *thunderous applause* ");
 
-var fight = function () {
-    window.alert("Welcome to Robot Gladiators Colosseum of Death! *thunderous applause* ");
-
+var fight = function (enemyName) {
+    
     var promptFight = window.prompt("Would you like to FIGHT or COWARD out of this battle? Enter 'FIGHT' or 'COWARD' to choose.");
     console.log(promptFight);
     if (promptFight === "fight" || promptFight === "FIGHT") {
@@ -54,7 +53,7 @@ var fight = function () {
             window.alert(playerName + " has decided to skip this fight. Coward!");
             playerMoney = playerMoney - 2;
             console.log(
-                playerName + " has lost 2 rubels and now has " + playerMoney +  " rubels.");
+                playerName + " has lost 2 rubels and now has " + playerMoney + " rubels.");
         }
         else {
             fight();
@@ -63,9 +62,14 @@ var fight = function () {
     else {
         window.alert("You need to choose a valid option. Try again!");
     }
-
-
-
 };
 
-fight();
+for(var i = 0; i < enemyNames.length; i++) {
+    fight(enemyNames[i]);
+}
+
+// Game States
+// "WIN" - Player robot has defeated all enemy-robots
+//  * Fight all enemy-robots
+//  * Defeat each enemy-robot
+//"LOSE" - Player robot's health is zero or less
