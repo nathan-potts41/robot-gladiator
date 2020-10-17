@@ -20,7 +20,9 @@ var fight = function (enemyName) {
     console.log(promptFight);
     if (promptFight === "fight" || promptFight === "FIGHT") {
         //substract the value of 'player Attack' from the value of the 'enemyHealth' and us that result to update the value in the 'enemyHealth' variable
-        enemyHealth = enemyHealth - playerAttack;
+        var damage = randomNumber(playerAttack - 3, playerAttack);
+
+        enemyHealth = Math.max(0, enemyHealth - damage);
         // Log a resulting message to the console so we know that it worked.
         console.log(
             playerName + " schmacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
@@ -33,7 +35,9 @@ var fight = function (enemyName) {
             window.alert(enemyName + " still has " + enemyHealth + " health left.");
         }
         // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-        playerHealth = playerHealth - enemyAttack;
+        var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+        playerHealth = Math.max(0, playerHealth - damage);
         // Log a resulting message to the console so we know that it worked.
         console.log(
             enemyName + " whalloped " + playerName + " pretty good. " + playerName + " now has " + playerHealth + " health remaining."
@@ -53,7 +57,7 @@ var fight = function (enemyName) {
 
         if (confirmSkip) {
             window.alert(playerName + " has decided to skip this fight. Coward!");
-            playerMoney = playerMoney - 2;
+            playerMoney = Math.max(0, playerMoney - 4);
             console.log(
                 playerName + " has lost 2 rubels and now has " + playerMoney + " rubels.");
         }
@@ -63,6 +67,8 @@ var fight = function (enemyName) {
     }
     else {
         window.alert("You need to choose a valid option. Try again!");
+        
+        fight();
     }
 };
 
@@ -81,8 +87,10 @@ var startGame = function() {
             window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
 
             var pickedEnemyName = enemyNames[i];
-            
-            enemyHealth = 50;
+            //generate random damage value based on player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+
+            enemyHealth = randomNumber(40, 60);
 
             fight(pickedEnemyName);
 
@@ -111,7 +119,7 @@ var endGame = function() {
         window.alert("Great job, you've survived the arena! You now have a score of "  + playerMoney + ".");
     }
     else {
-        window.alert("You robot is now scrap metal.");
+        window.alert("Your robot is now scrap metal.");
     }
     //ask player if they'd like to try again
     var playAgainConfirm = window.confirm("Would you like to play again?");
@@ -171,6 +179,12 @@ var shop = function() {
             break;
     }
 }
+
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * 21) + 40;
+
+    return value;
+};
 
 startGame();
 
